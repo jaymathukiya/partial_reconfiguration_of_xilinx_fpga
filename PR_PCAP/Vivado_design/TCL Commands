@@ -1,0 +1,76 @@
+#//writing/copying the netlists
+write_checkpoint ./DFX_Ex2/netlists/static/static.dcp
+
+#//To generate individual .dcp files (for adder, mul and sub)
+synth_design -mode out_of_context -top arithmetic
+write_checkpoint ./DFX_Ex2/netlists/adder/adder.dcp
+
+#//Stitch Static with first netlist (adder)
+read_checkpoint -cell [get_cells design_1_i/reconfig_module_0/inst] ./Git/Trial4/netlists/adder/adder.dcp
+#//^^if this does not work try with just [get_cells design_1_i/adder_0]
+
+#//Generate combined (static + first partial) dcp file
+write_checkpoint ./Git/Trial4/netlists/adder_config/adder_config.dcp
+
+#//Place and route the design
+opt_design
+place_design
+route_design
+
+#//Generate place and routed netlist of combined region
+write_checkpoint ./Git/Trial4/netlists/adder_config/adder_config_routed.dcp
+
+#//Generate bitstream
+write_bitstream ./Git/Trial4/bitstreams/adder/full_adder.bit
+
+#//remove the pr and generate place and routed netlist of  static region
+update_design -cell [get_cells design_1_i/reconfig_module_0] -black_box
+write_checkpoint ./Git/Trial4/netlists/static/static_routed.dcp
+
+#//preserve the design
+lock_design -level routing
+
+#//Add the second partial netlist (multiplier)
+read_checkpoint -cell [get_cells design_1_i/reconfig_module_0] ./Git/Trial4/netlists/multiplier/multiplier.dcp
+
+#//Generate combined (static + second partial) dcp file
+write_checkpoint ./Git/Trial4/netlists/multiplier_config/multiplier_config.dcp
+
+#//Place and route the design
+opt_design
+place_design
+route_design
+
+#//Generate place and routed netlist of combined region
+write_checkpoint ./Git/Trial4/netlists/multiplier_config/multiplier_config_routed.dcp
+
+#//Generate bitstream
+write_bitstream ./Git/Trial4/bitstreams/multiplier/full_multiplier.bit
+
+#//remove the pr and generate place and routed netlist of  static region
+update_design -cell [get_cells design_1_i/reconfig_module_0] -black_box
+
+#//Add the third partial netlist (subtractor)
+read_checkpoint -cell [get_cells design_1_i/reconfig_module_0] ./Git/Trial4/netlists/Subtractor/subtractor.dcp
+
+#//Generate combined (static + third partial) dcp file
+write_checkpoint ./Git/Trial4/netlists/subtractor_config/subtractor_config.dcp
+
+#//Place and route the design
+opt_design
+place_design
+route_design
+
+#//Generate place and routed netlist of combined region
+write_checkpoint ./Git/Trial4/netlists/subtractor_config/subtractor_config_routed.dcp
+
+#//Generate bitstream
+write_bitstream ./Git/Trial4/bitstreams/subtractor/full_subtractor.bit
+
+#//Bitstream conversion (.bit to .bin)
+write_cfgmem -format BIN -interface SMAPx32 -disablebitswap -loadbit "up 0x0 ./Git/Trial4/bitstreams/adder/partial_adder.bit" “./Git/Trial4/bitstreams/adder/partial_adder.bin”
+write_cfgmem -format BIN -interface SMAPx32 -disablebitswap -loadbit "up 0x0 ./Git/Trial4/bitstreams/multiplier/partial_multiplier.bit" “./Git/Trial4/bitstreams/multiplier/partial_multiplier.bin”
+write_cfgmem -format BIN -interface SMAPx32 -disablebitswap -loadbit "up 0x0 ./Git/Trial4/bitstreams/subtractor/partial_subtractor.bit" “./Git/Trial4/bitstreams/subtractor/partial_subtractor.bin”
+
+
+
