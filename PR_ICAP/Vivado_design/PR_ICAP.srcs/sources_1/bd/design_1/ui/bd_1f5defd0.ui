@@ -1,0 +1,43 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.586037",
+   "Default View_TopLeft":"0,-142",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace port DDR -pg 1 -lvl 6 -x 1920 -y 190 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 6 -x 1920 -y 210 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 5 -x 1660 -y 240 -defaultsOSRD
+preplace inst axi_dma_0 -pg 1 -lvl 3 -x 920 -y 240 -defaultsOSRD
+preplace inst ps7_0_axi_periph -pg 1 -lvl 2 -x 560 -y 200 -defaultsOSRD
+preplace inst rst_ps7_0_50M -pg 1 -lvl 1 -x 200 -y 400 -defaultsOSRD
+preplace inst smartconnect_0 -pg 1 -lvl 4 -x 1290 -y 220 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 4 -x 1290 -y 70 -defaultsOSRD
+preplace inst zycap_0 -pg 1 -lvl 3 -x 920 -y 420 -defaultsOSRD
+preplace inst reconfig_module_0 -pg 1 -lvl 2 -x 560 -y 420 -defaultsOSRD
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 6 20 300 380 60 730 120 1130 320 1440 130 1880
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 6 20 530 NJ 530 NJ 530 1150 350 NJ 350 1880
+preplace netloc rst_ps7_0_50M_peripheral_aresetn 1 1 2 390 520 740
+preplace netloc zycap_0_mm2s_introut 1 3 1 1120 60n
+preplace netloc axi_dma_0_s2mm_introut 1 3 1 1110 80n
+preplace netloc xlconcat_0_dout 1 4 1 1430 70n
+preplace netloc processing_system7_0_DDR 1 5 1 NJ 190
+preplace netloc axi_dma_0_M_AXI_MM2S 1 3 1 N 180
+preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 N 190
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 5 400 510 NJ 510 NJ 510 NJ 510 1890
+preplace netloc axi_dma_0_M_AXI_S2MM 1 3 1 N 200
+preplace netloc smartconnect_0_M00_AXI 1 4 1 N 220
+preplace netloc processing_system7_0_FIXED_IO 1 5 1 NJ 210
+preplace netloc zycap_0_M_AXI_MM2S 1 3 1 1140 220n
+preplace netloc ps7_0_axi_periph_M01_AXI 1 2 1 710 210n
+preplace netloc reconfig_module_0_m_axis 1 2 1 720 210n
+preplace netloc axi_dma_0_M_AXIS_MM2S 1 1 3 410 500 NJ 500 1100
+levelinfo -pg 1 0 200 560 920 1290 1660 1920
+pagesize -pg 1 -db -bbox -sgen 0 0 2040 550
+"
+}
+{
+   "da_axi4_cnt":"4",
+   "da_clkrst_cnt":"2",
+   "da_ps7_cnt":"1"
+}
